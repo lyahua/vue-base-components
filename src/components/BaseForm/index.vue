@@ -3,8 +3,11 @@
         <el-row v-for="(itemArr, indexArr) in formConfigList" :key="indexArr">
             <el-col v-for="(item, index) in itemArr" :key="index" :span="item._span">
                 <el-form-item :label="item._label" :prop="item._value" :rules="item._rules" v-if="item._isShow">
-
-                    <component :is="item._component" :options="item._options" v-bind="item._props" v-model="form[item._value]" />
+                    <template v-if="item._renderContent">
+                        <!-- {{JSON.stringify(item._renderContent)}} -->
+                         <!-- {{h(item._renderContent)}} -->
+                    </template>
+                    <component :is="item._component" :options="item._options" v-bind="item._props" v-model="form[item._value]" v-else/>
                 </el-form-item>
             </el-col>
         </el-row>
@@ -14,7 +17,7 @@
     </el-form>
 </template>
 
-<script setup>
+<script setup lang="jsx">
 import { ref, computed } from 'vue';
 
 import { elementsMaps } from './elements-map'
@@ -31,14 +34,14 @@ const props = defineProps({
         type: Array,
         default: () => ([
             {
-                label: '姓名',
+                label: '姓名1',
                 value: 'name',
                 type: 'input',
                 isRequired: true,
                 isShow: true,
-                // renderContent:()=>{
-                //     return [<span>11111</span>]
-                // }
+                renderContent:()=>{
+                     return [<span>11111</span>]
+                 }
 
             },
             {
@@ -158,6 +161,7 @@ const formConfigList = computed(() => {
             config._rules = getRules(config)
             config._span = config.span || 6
             config._options = config.options
+            config._renderContent = isFunction(config.renderContent)? config.renderContent(unref(form)): null
 
             console.log('config', config)
             return config
@@ -165,6 +169,7 @@ const formConfigList = computed(() => {
     })
 
 })
+
 </script>
 
 <style lang="css" scoped></style>
