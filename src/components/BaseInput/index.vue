@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <el-input v-model="currentValue" v-bind="attrs" >
-             <!-- 插槽 -->
-             <template v-for="(item ,key) in slots" v-slot:[key]>
-                <slot :name="key"></slot>
-             </template>
-        </el-input>
-    </div>
+    <el-input v-model="currentValue" v-bind="attrs" >
+            <!-- 插槽 -->
+            <template v-for="(item ,key) in slots" v-slot:[key]>
+            <slot :name="key"></slot>
+            </template>
+    </el-input>
 </template>
 
 <script>
