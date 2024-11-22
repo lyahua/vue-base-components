@@ -1,4 +1,11 @@
-import { ref, defineComponent, computed } from "vue";
+import {
+  ref,
+  defineComponent,
+  computed,
+  onMounted,
+  resolveComponent,
+  h,
+} from "vue";
 
 import { computedFormItem } from "./core";
 
@@ -23,7 +30,7 @@ export default defineComponent({
         },
         {
           label: "姓名",
-          value: "name",
+          value: "name2",
           type: "input",
           isRequired: true,
           props: {
@@ -33,7 +40,7 @@ export default defineComponent({
         },
         {
           label: "姓名",
-          value: "name",
+          value: "name1",
           type: "input",
           isRequired: true,
         },
@@ -54,20 +61,60 @@ export default defineComponent({
       ],
     },
   },
-  setup(props) {
-    const form = ref();
-    console.log('props', props.fields)
+  emits: ["update:modelValue"],
+  setup(props, { expose, emit }) {
+    const form = ref({
+     });
+    console.log("props", props.fields);
     const formConfigList = computed(() => {
-      return computedFormItem(props.fields, props.grid, form.value)
-    })
-    console.log('formConfigList', formConfigList)
+      return computedFormItem(props.fields, props.grid, form.value);
+    });
+    console.log("formConfigList", formConfigList.value);
+
+    onMounted(() => {
+      props.fields.forEach((item) => {
+        form.value[item.value] = "";
+      });
+      console.log("form.value", form.value);
+    });
+
+    const handleInput = (value, field) => {
+      console.log('value', value)
+      form.value[field._value] = value;
+    };
+
+    const renderFormItem = (item) => {
+      const Component = resolveComponent(item._component);
+      return h(Component, {
+        ...item.props,
+        value: form.value[item._value],
+        onInput: (value) => handleInput(value, item),
+      });
+    };
 
     return () => {
       return (
         <>
           <el-form>
-            222222
-            <el-form-item></el-form-item>
+            {formConfigList.value.map((itemArr, indexArr) => {
+              return (
+                <el-row>
+                  {itemArr.map((item, index) => {
+                    return (
+                      <el-col span={item._span} key={index}>
+                        <el-form-item
+                          label={item._label}
+                          prop={item._value}
+                          rules={item._rules}
+                        >
+                          {renderFormItem(item)}
+                        </el-form-item>
+                      </el-col>
+                    );
+                  })}
+                </el-row>
+              );
+            })}
           </el-form>
         </>
       );
