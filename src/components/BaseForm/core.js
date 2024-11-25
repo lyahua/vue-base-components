@@ -72,7 +72,7 @@ export const computedFormItem = (fields, grid, form) =>{
             resultFieldsList.push([Object.assign(colneFields[i], { span: 24 })])
         }
     }
-    console.log('resultFieldsList', resultFieldsList)
+    // console.log('resultFieldsList', resultFieldsList)
     return resultFieldsList.map(itemArr => {
         return itemArr.map(item => {
             let config = { ...item }
@@ -87,7 +87,7 @@ export const computedFormItem = (fields, grid, form) =>{
             config._options = config.options
             config._renderContent = isFunction(config.renderContent)? config.renderContent(unref(form)): null
 
-            console.log('config', config)
+            // console.log('config', config)
             return config
         })
     })

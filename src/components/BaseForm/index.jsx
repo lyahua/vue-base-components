@@ -61,54 +61,58 @@ export default defineComponent({
       ],
     },
   },
+  inheritAttrs: false,
   emits: ["update:modelValue"],
   setup(props, { expose, emit }) {
-    const form = ref({
-     });
-    console.log("props", props.fields);
+    const form = ref({});
     const formConfigList = computed(() => {
       return computedFormItem(props.fields, props.grid, form.value);
     });
-    console.log("formConfigList", formConfigList.value);
 
     onMounted(() => {
       props.fields.forEach((item) => {
         form.value[item.value] = "";
       });
-      console.log("form.value", form.value);
     });
 
     const handleInput = (value, field) => {
-      console.log('value', value)
+      console.log("value", value);
       form.value[field._value] = value;
     };
 
     const renderFormItem = (item) => {
+      return (
+        <el-form-item
+          label={item._label}
+          prop={item._value}
+          rules={item._rules}
+        >
+          {item._renderContent ? item._renderContent : renderComponent(item)}
+        </el-form-item>
+      );
+    };
+
+    const renderComponent = (item) => {
       const Component = resolveComponent(item._component);
       return h(Component, {
         ...item.props,
-        value: form.value[item._value],
-        onInput: (value) => handleInput(value, item),
+        options: item._options,
+        modelValue: form.value[item._value],
+        "onUpdate:modelValue": (value) => handleInput(value, item),
       });
     };
 
     return () => {
       return (
         <>
-          <el-form>
+          <el-form model={form}>
             {formConfigList.value.map((itemArr, indexArr) => {
               return (
                 <el-row>
                   {itemArr.map((item, index) => {
                     return (
                       <el-col span={item._span} key={index}>
-                        <el-form-item
-                          label={item._label}
-                          prop={item._value}
-                          rules={item._rules}
-                        >
-                          {renderFormItem(item)}
-                        </el-form-item>
+                        {item._isShow ? renderFormItem(item) : ""}
                       </el-col>
                     );
                   })}
