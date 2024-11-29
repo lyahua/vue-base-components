@@ -24,9 +24,9 @@ export default defineComponent({
           type: "input",
           isRequired: true,
           isShow: true,
-          renderContent: () => {
-            return [<span>11111</span>];
-          },
+          // renderContent: () => {
+          //   return [<span>11111</span>];
+          // },
         },
         {
           label: "姓名",
@@ -37,6 +37,9 @@ export default defineComponent({
             type: "textarea",
           },
           isShow: true,
+          onInput: (value) => {
+            console.log("value", value);
+          },
         },
         {
           label: "姓名",
@@ -60,9 +63,13 @@ export default defineComponent({
         },
       ],
     },
+    inline: {
+      type: Boolean,
+      default: false,
+    },
   },
   inheritAttrs: false,
-  emits: ["update:modelValue"],
+  emits: [],
   setup(props, { expose, emit }) {
     const form = ref({});
     const formConfigList = computed(() => {
@@ -76,8 +83,13 @@ export default defineComponent({
     });
 
     const handleInput = (value, field) => {
-      console.log("value", value);
       form.value[field._value] = value;
+      if (field.onInput) {
+        field.onInput(value);
+      }
+      if (field.onChange) {
+        field.onChange(value);
+      }
     };
 
     const renderFormItem = (item) => {
@@ -102,23 +114,39 @@ export default defineComponent({
       });
     };
 
+    const renderElRow = () => {
+      return (
+        <>
+        
+        </>
+      )
+    };
+
+    const renderGrid = () => {
+      return (
+        <>
+          {formConfigList.value.map((itemArr, indexArr) => {
+            return (
+              <el-row>
+                {itemArr.map((item, index) => {
+                  return (
+                    <el-col span={item._span} key={index}>
+                      {item._isShow ? renderFormItem(item) : ""}
+                    </el-col>
+                  );
+                })}
+              </el-row>
+            );
+          })}
+        </>
+      );
+    };
+
     return () => {
       return (
         <>
-          <el-form model={form}>
-            {formConfigList.value.map((itemArr, indexArr) => {
-              return (
-                <el-row>
-                  {itemArr.map((item, index) => {
-                    return (
-                      <el-col span={item._span} key={index}>
-                        {item._isShow ? renderFormItem(item) : ""}
-                      </el-col>
-                    );
-                  })}
-                </el-row>
-              );
-            })}
+          <el-form model={form} inline={props.inline}>
+            {renderGrid()}
           </el-form>
         </>
       );
