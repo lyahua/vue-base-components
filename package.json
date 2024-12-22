@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "homepage": "https://lyahua.github.io/github-actions-demo",
   "dependencies": {
     "element-plus": "^2.8.7",
     "lodash": "^4.17.21",
