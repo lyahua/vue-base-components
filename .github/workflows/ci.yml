@@ -19,13 +19,16 @@
 name: 打包部署vite项目
 on: push
 
+permissions:
+  contents: write
+
 jobs: 
   # 工作名称
   npm-build:
     name: npm-build工作
     runs-on: ubuntu-latest
 
-    setps:
+    steps:
       # 解决文件路径读取错误问题
       - name: 读取仓库内容
         uses: actions/checkout@v4
