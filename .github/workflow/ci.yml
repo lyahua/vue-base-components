@@ -1,0 +1,12 @@
+# 当有push的时候触发工作流
+on: push
+
+jobs:
+  job1:
+    # - 为数组写法
+    steps:
+      - run: pwb
+      - run: ls
+  job2:
+    steps:
+      - run: node --version
