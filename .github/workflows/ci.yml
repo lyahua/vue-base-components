@@ -29,12 +29,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 解决文件路径读取错误问题
       - name: 读取仓库内容
         uses: actions/checkout@v4
 
-      - name: 安装依赖 + 项目打包
-        run : |
+      - name: 安装依赖+项目打包
+        run: |
           npm install
           npm run build
       
