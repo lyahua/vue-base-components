@@ -1,16 +1,37 @@
 # 当有push的时候触发工作流
+# on: push
+
+# jobs:
+#   job1:
+#     # 运行在哪个系统上
+#     runs-on: ubuntu-latest
+#     # - 为数组写法
+#     steps:
+#       - run: pwd
+#       - run: ls
+#   job2:
+#     # 运行在哪个系统上
+#     runs-on: windows-latest
+#     steps:
+#       - run: node --version
+
+# 正式打包和部署
+name: 打包部署vite项目
 on: push
 
-jobs:
-  job1:
-    # 运行在哪个系统上
+jobs: 
+  # 工作名称
+  npm-build:
+    name: npm-build工作
     runs-on: ubuntu-latest
-    # - 为数组写法
-    steps:
-      - run: pwd
-      - run: ls
-  job2:
-    # 运行在哪个系统上
-    runs-on: windows-latest
-    steps:
-      - run: node --version
+
+    setps:
+      # 解决文件路径读取错误问题
+      - name: 读取仓库内容
+        uses: actions/checkout@v4
+
+      - name: 安装依赖
+        run : npm install
+      
+      - name: 项目打包
+        run: npm run build
