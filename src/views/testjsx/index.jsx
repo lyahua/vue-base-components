@@ -25,13 +25,13 @@ export const Com1 = defineComponent({
         // console.log('obj666', obj, expose, emit)
         console.log('%c comp1插槽', 'color:green')
         console.log('slots',slots)
-        onBeforeRouteLeave((to, from) => {
-            const answer = window.confirm(
-                'Do you really want to leave? you have unsaved changes!'
-            )
-            // 取消导航并停留在同一页面上
-            if (!answer) return false
-        })
+        // onBeforeRouteLeave((to, from) => {
+        //     const answer = window.confirm(
+        //         'Do you really want to leave? you have unsaved changes!'
+        //     )
+        //     // 取消导航并停留在同一页面上
+        //     if (!answer) return false
+        // })
         onMounted(() => {
             console.log('com1 onmounted')
         })
@@ -48,14 +48,14 @@ export const Com1 = defineComponent({
 })
 
 export const Com2 = defineComponent((props,{slots})=>{
-    onBeforeRouteLeave((to, from) => {
-        console.log('%c color, ','color: red%')
-        const answer = window.confirm(
-            'Do you really want to leave? you have unsaved changes!'
-        )
-        // 取消导航并停留在同一页面上
-        if (!answer) return false
-    })
+    // onBeforeRouteLeave((to, from) => {
+    //     console.log('%c color, ','color: red%')
+    //     const answer = window.confirm(
+    //         'Do you really want to leave? you have unsaved changes!'
+    //     )
+    //     // 取消导航并停留在同一页面上
+    //     if (!answer) return false
+    // })
     console.log(`%c Com2插槽${slots}`, 'color: red')
     console.log(slots)
     const count2 = ref(2)
