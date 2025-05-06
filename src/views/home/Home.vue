@@ -1,13 +1,12 @@
 <script setup>
 import Test from '@/components/BaseForm/index.jsx'
-import Menu from './Menu.vue';
+
 
 import { Com1, Com2 } from '../testjsx/index'
 </script>
 
 <template>
   <main>
-    <Menu/>
     <BaseInput/>
 
     <BaseSelect :options="[{label:1,value:1,},{label:2,value:2}]"/>
