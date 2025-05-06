@@ -3,10 +3,14 @@ import Test from '@/components/BaseForm/index.jsx'
 
 
 import { Com1, Com2 } from '../testjsx/index'
+import Menu from './Menu.vue';
+
 </script>
 
 <template>
   <main>
+    <Menu/>
+
     <BaseInput/>
 
     <BaseSelect :options="[{label:1,value:1,},{label:2,value:2}]"/>
