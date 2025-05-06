@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/home/Home.vue'
+import About from '../views/AboutView.vue'
+import ScratchTicket from '../views/scratchTicket.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -18,7 +20,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      component: About,
       meta: {
         title: '关于'
       }
@@ -26,7 +28,7 @@ const router = createRouter({
     {
       path: '/scratchTicket',
       name: 'scratchTicket',
-      component: () => import('../views/scratchTicket.vue'),
+      component: ScratchTicket,
       meta: {
         title: '刮刮乐'
       }
@@ -34,6 +36,7 @@ const router = createRouter({
   ],
 })
 
+console.log('router', router)
 router.onError((error, to) => {
   const errors = ['Failed to fetch dynamically imported module', 'Unable to preload CSS'];
 
