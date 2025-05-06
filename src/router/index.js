@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/home/Home.vue'
 import About from '../views/AboutView.vue'
-import ScratchTicket from '../views/scratchTicket.vue'
+import ScratchTicket from '../views/scratchTicket/index.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),

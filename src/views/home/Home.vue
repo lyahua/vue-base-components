@@ -3,13 +3,12 @@ import Test from '@/components/BaseForm/index.jsx'
 
 
 import { Com1, Com2 } from '../testjsx/index'
-import Menu from './Menu.vue';
+
 
 </script>
 
 <template>
   <main>
-    <Menu/>
 
     <BaseInput/>
 
