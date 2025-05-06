@@ -12,6 +12,10 @@ export default defineConfig({
     vueJsx(),
     vue(),
   ],
+  optimizeDeps: {
+    // 禁用ES模块语法解析
+    syntaxDynamicImport: false
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
