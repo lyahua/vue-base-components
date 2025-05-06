@@ -23,14 +23,14 @@ const router = createRouter({
         title: '关于'
       }
     },
-    {
-      path: '/scratchTicket',
-      name: 'scratchTicket',
-      component: () => import('../views/scratchTicket/index.vue'),
-      meta: {
-        title: '刮刮乐'
-      }
-    },
+    // {
+    //   path: '/scratchTicket',
+    //   name: 'scratchTicket',
+    //   component: () => import('../views/scratchTicket/index.vue'),
+    //   meta: {
+    //     title: '刮刮乐'
+    //   }
+    // },
   ],
 })
 
