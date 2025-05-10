@@ -1,7 +1,7 @@
 <template>
   <div class="scratch_ticket">
     <!-- <h2>刮刮乐</h2> -->
-    <div class="text">受命于天, 既受永昌</div>
+    <div class="text">受命于天<br/>既寿永昌</div>
   </div>
 </template>
 
@@ -90,5 +90,6 @@ canvas {
   display: flex;
   align-items: center;
   position: absolute;
+  justify-content: center;
 }
 </style>
